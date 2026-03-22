@@ -12,12 +12,19 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
+	"io"
+	"log"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/quic-go/quic-go"
 )
+
+func init() {
+	// Suppress quic-go's UDP buffer size warning on stderr.
+	log.SetOutput(io.Discard)
+}
 
 const defaultTimeoutSec = 5
 
