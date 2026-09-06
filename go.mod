@@ -1,6 +1,6 @@
 module github.com/DataPulse/quicprobe
 
-go 1.24
+go 1.27.1
 
 require github.com/quic-go/quic-go v0.59.0
 
