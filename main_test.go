@@ -557,10 +557,12 @@ func TestProbe_ExplicitIPKeepsSNI(t *testing.T) {
 }
 
 func TestProbe_NonQUICHost(t *testing.T) {
+	// www.gnu.org is served from GNU's own servers, which answer TCP only.
+	// The host must not sit behind a CDN: example.com, on Cloudflare, answers h3.
 	requireNetwork(t)
-	r := probe(hostOpts("example.com", 5*time.Second))
+	r := probe(hostOpts("www.gnu.org", 5*time.Second))
 	if r.Supported {
-		t.Error("expected example.com to NOT support QUIC")
+		t.Error("expected www.gnu.org to NOT support QUIC")
 	}
 	if r.Error == "" || r.Reason == "" {
 		t.Errorf("expected error message and reason for non-QUIC host, got %+v", r)
